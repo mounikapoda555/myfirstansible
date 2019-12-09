@@ -1,0 +1,8 @@
+- name: added in 2.4, previously you used 'include'
+  import_tasks: redhat.yml
+  when: ansible_os_family == "RedHat"
+  
+- name: deploy iptables rules
+  template: src=iptables dest=/tmp/iptables
+  when: ansible_os_family == "RedHat"
+  notify: handler

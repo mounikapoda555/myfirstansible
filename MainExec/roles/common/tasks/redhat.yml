@@ -1,0 +1,11 @@
+- name: priint statement 
+  command: echo "this task will restart the web services"
+  changed_when: true
+  notify: handler
+
+- name: Install packages
+  yum:
+    name: dos2unix
+    state: latest
+  changed_when: true
+  notify: handler

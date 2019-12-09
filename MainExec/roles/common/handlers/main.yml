@@ -1,0 +1,4 @@
+---
+- debug:
+    msg: handler triggered
+  listen: handler

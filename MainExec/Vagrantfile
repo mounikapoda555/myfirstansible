@@ -1,0 +1,40 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+  config.vm.define "ansible" do |ansible|
+    ansible.vm.box = "centos/7"
+    ansible.vm.hostname = "ansible-control"
+	ansible.ssh.insert_key = true
+	ansible.vm.synced_folder ".", "/vagrant/control"
+	ansible.vm.network :private_network, ip: "192.168.68.11"
+	ansible.vm.provision "shell",
+      inline: "echo Hello, World"
+  end
+  config.vm.define "web" do |mach1|
+    mach1.vm.box = "centos/7"
+    mach1.vm.hostname = "machine1"
+	mach1.ssh.insert_key = true
+	mach1.vm.synced_folder ".", "/vagrant/web"
+	mach1.vm.network :private_network, ip: "192.168.68.12"
+	mach1.vm.provision "shell",
+      inline: "echo Hello, World"
+  end
+  config.vm.define "web2" do |mach2|
+    mach2.vm.box = "centos/7"
+    mach2.vm.hostname = "machine2"
+	mach2.ssh.insert_key = true
+	mach2.vm.synced_folder ".", "/vagrant/web2"
+	mach2.vm.network :private_network, ip: "192.168.68.13"
+    mach2.vm.provision "shell",
+      inline: "echo Hello, World2"
+  end
+  config.vm.define "web3" do |mach3|
+    mach3.vm.box = "centos/7"
+    mach3.vm.hostname = "machine3"
+	mach3.ssh.insert_key = true
+	mach3.vm.synced_folder ".", "/vagrant/web3"
+	mach3.vm.network :private_network, ip: "192.168.68.14"
+    mach3.vm.provision "shell",
+      inline: "echo Hello, World3"
+  end
+end
