@@ -1,0 +1,7 @@
+---
+- hosts: webservers
+  tasks:
+    - name:
+      copy:
+        src: /home/ansible/copy.yml
+        dest: /home/ansible/copied.yml

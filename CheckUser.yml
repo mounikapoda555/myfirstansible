@@ -1,0 +1,24 @@
+---
+ - hosts: all
+   vars:
+    userlist:
+      - ansible
+      - ansible1
+      - ansible2
+   tasks:
+     - name: check User
+       action: shell /usr/bin/getent passwd {{ item }} | /usr/bin/wc -l | tr -d ''
+       register: user_exist
+       become: yes
+       with_items: "{{ userlist }}"
+     - name: "loop through list"
+       debug:
+         msg: "An item: {{user_exist.results}}"
+     - name: Create user if not exist
+       user:
+       args:
+         name: "{{ item.item }}"
+         password: "{{ item.item }}"
+       become: yes
+       when: "{{ item.stdout }} == 0"
+       with_items: "{{ user_exist.results }}"

@@ -1,0 +1,14 @@
+---
+- hosts: webservers
+  tasks:
+  - name: check the package is installed
+    command: dos2unix --version
+    ignore_errors: true
+    register: dos2unix_check
+  - name: Execute script if git is not installed
+    yum: 
+     name: dos2unix
+     state: present
+     update_cache: yes
+    become: yes
+    when: dos2unix_check.rc != 0

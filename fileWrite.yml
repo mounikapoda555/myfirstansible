@@ -1,0 +1,29 @@
+---
+ - hosts: webservers
+   tasks:
+   - lineinfile:
+       path: /tmp/fruits.txt
+       regexp: '^Appe'
+       insertbefore: '^Appe'
+       line: 'Listen 8080'
+       mode: 0644
+       #not satify with regexp and insertbefore, it will insert at the end
+       #validate: '/usr/sbin/visudo -cf %s'
+   - lineinfile:
+       path: /tmp/fruits1.txt
+       line: 'Apple \n Orange \n Banana'
+       create: yes
+#   - lineinfile: 
+#       path: /tmp/fruits.txt
+#       regexp: '^Appe'
+#       insertbefore: '^Apple'
+#       line: 'Listen 8080'
+#       mode: 0644 
+       #not satify with regexp and satify with insertbefore, it will insert at the insertbefore
+#   - lineinfile:
+#       path: /tmp/fruits.txt
+#       regexp: '^Apple'
+#       insertbefore: '^Apple'
+#       line: 'Listen 8080'
+#       mode: 0644
+       #not satify with regexp , it will replace  at the reget line

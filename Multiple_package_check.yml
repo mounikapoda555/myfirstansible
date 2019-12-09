@@ -1,0 +1,23 @@
+---
+- hosts: webservers
+  vars:
+    packages:
+      - dos2unix
+      - git
+  tasks:
+  - name: check the package is installed
+    command: "{{ item }} --version"
+    ignore_errors: true
+    register: device_stat
+    with_items: "{{ packages }}"
+  - name: "loop through list"
+    debug:
+      msg: "An item: {{device_stat.results}}"  
+  - name: Execute script if git is not installed
+    yum: 
+     name: "{{ item.item }}"
+     state: present
+     update_cache: yes
+    become: yes
+    when: "{{ item.rc }} != 0"
+    with_items: "{{ device_stat.results }}"

@@ -1,0 +1,30 @@
+---
+ - hosts: webservers
+   gather_facts: True
+   tasks:
+     - name: capture output of id command
+       shell: id -un
+       register: login
+     - debug: var="{{ item }}"
+       with_items:
+          - login.stdout
+          - ansible_distribution
+       tags:
+         - singleStaement
+     - name: "loop through list"
+       debug:
+         msg: "An item: {{item}}"
+       with_items:
+          - 1
+          - 2
+          - 3
+       tags:
+         - singleStaement
+     - name: "loop through list from a variable"
+       debug: 
+         msg: "An item: {{item.name}}  {{item.uid}}" 
+       with_items: 
+         - { name: testuser1, uid: 1002, groups: "wheel, staff" }
+        
+        
+      

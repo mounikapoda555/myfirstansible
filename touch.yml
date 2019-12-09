@@ -1,0 +1,13 @@
+---
+ - hosts: webservers
+   gather_facts: False
+   vars:
+    welcome: "intro to ansible"
+   tasks:
+     - name: ping
+       ping:
+     - name: sample motd
+       copy:
+        dest: /tmp/motd
+        content: "hiiiiiii ansible ...................."
+
